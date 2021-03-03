@@ -6,6 +6,6 @@ var thisComment = [
 ];
 
 for(var i=0;i<thisComment.length;i++){
-	var html = "<div class='commentBox'><div class='leftPanelImg'><img src='images/profile.png'></div><div class='rightPanel'><span>"+thisComment[i].name+"</span><div class='date'>"+thisComment[i].date+"</div><p>"+thisComment[i].body+"</p></div><div class='clear'></div></div>"
-	$('#container').append(html)
+	var html = "<div class='commentBox'><div class='leftPanelImg'><img src='images/profile.png'></div><div class='rightPanel'><span>"+thisComment[i].name+"</span><div class='date'>"+thisComment[i].date+"</div><p>"+thisComment[i].body+"</p></div><div class='clear'></div></div>";
+	$('#container').append(html);
 }
