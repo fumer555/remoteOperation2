@@ -2,7 +2,7 @@ var thisComment = [
 {"name": "fumer555","date": "14 Jan, 2020", "body": "Hello World! 1"},
 {"name": "fumer555","date": "14 Jan, 2020", "body": "Hello World! 2"},
 {"name": "fumer555","date": "14 Jan, 2020", "body": "Hello World! 3"},
-{"name": "fumer555","date": "14 Jan, 2020", "body": "Hello World! 4"},
+{"name": "fumer555","date": "14 Jan, 2020", "body": "Hello World! 4"}
 ];
 
 for(var i=0;i<thisComment.length;i++){
