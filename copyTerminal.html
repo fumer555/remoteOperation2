@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Copy to Clipboard</title>
+
+</head>
+
+<body>
+<hy>Copy to Clipboard</hy>
+
+<br>
+<div id="container">
+</div>
+<br>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+	var thisComment = [
+	{"inputLabel":"1","link": "open file://User/thisUser/Documents/","description": "Open Document Folder from Terminal"},
+	{"inputLabel":"2","link": "open file://User/thisUser/Public/","description": "Open Public Folder from Terminal"},
+	{"inputLabel":"3","link": "","description": ""},
+	{"inputLabel":"4","link": "","description": ""},
+	{"inputLabel":"5","link": "","description": ""},
+	];
+
+	console.log(thisComment);
+
+	for(var i=0;i<thisComment.length;i++){
+		var html = "<input type='text' value='"+thisComment[i].link+"' id='myInput"+thisComment[i].inputLabel+"'><button onclick=\"myFunction('myInput"+thisComment[i].inputLabel+"')\">Copy text</button><a>"+thisComment[i].description+"</a><br>";
+		$('#container').append(html);
+		console.log(html);
+	}
+</script>
+
+
+
+</body>
+</html>
