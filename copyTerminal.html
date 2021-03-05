@@ -23,13 +23,19 @@
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-	var thisComment = [
-	{"inputLabel":"1","link": "open file://User/thisUser/Documents/","description": "Open Document Folder from Terminal"},
-	{"inputLabel":"2","link": "open file://User/thisUser/Public/","description": "Open Public Folder from Terminal"},
-	{"inputLabel":"3","link": "","description": ""},
-	{"inputLabel":"4","link": "","description": ""},
-	{"inputLabel":"5","link": "","description": ""},
-	];
+// 	var thisComment = [
+// 	{"inputLabel":"1","link": "open file://User/thisUser/Documents/","description": "Open Document Folder from Terminal"},
+// 	{"inputLabel":"2","link": "open file://User/thisUser/Public/","description": "Open Public Folder from Terminal"},
+// 	{"inputLabel":"3","link": "","description": ""},
+// 	{"inputLabel":"4","link": "","description": ""},
+// 	{"inputLabel":"5","link": "","description": ""},
+// 	];
+	
+	var thisComment;
+	$.getJSON("https://fumer555.github.io/remoteOperation2/collection.json", function(json){
+    	thisComment = json;
+	});
+	console.log(thisComment);
 
 	console.log(thisComment);
 
