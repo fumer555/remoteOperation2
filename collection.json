@@ -1,4 +1,5 @@
-{"allLabels":
+{
+	"allLabels":
 	[
 		{"inputLabel":"1","link": "open file://User/thisUser/Documents/","description": "Open Document Folder from Terminal"},
 		{"inputLabel":"2","link": "open file://User/thisUser/Public/","description": "Open Public Folder from Terminal"},
