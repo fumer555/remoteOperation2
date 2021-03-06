@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Copy to Clipboard</title>
+
+</head>
+
+<body>
+<hy>Copy to Clipboard</hy>
+<a href="../../index.html">Go to index</a>
+
+
+<br>
+<div id="container">
+</div>
+<br>
+
+
+
+
+<script>
+function myFunction(thisID) {
+  var copyText = document.getElementById(thisID);
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+  //alert("Copied the text: " + copyText.value);
+}
+
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+	// var thisComment;
+	$(function(){
+		$.getJSON("https://fumer555.github.io/remoteOperation2/collection.json", function(data){
+	    	var thisComment = data;
+	    	console.log(thisComment);
+	    	for(var i=0;i<thisComment.length;i++){
+			var html = "<input type='text' value='"+thisComment[i].link+"' id='myInput"+thisComment[i].inputLabel+"'><button onclick=\"myFunction('myInput"+thisComment[i].inputLabel+"')\">Copy text</button><a>"+thisComment[i].description+"</a><br>";
+			$('#container').append(html);
+			// console.log(html);
+			}
+		});
+	});
+	
+
+
+
+</script>
+
+
+
+
+
+
+<!-- https://stackoverflow.com/questions/2177548/load-json-into-variable -->
+	
+
