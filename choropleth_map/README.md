@@ -1,5 +1,7 @@
 Link to the working pen right [here](https://codepen.io/borntofrappe/full/RBdrPG/).
 
+https://fumer555.github.io/remoteOperation2/choropleth_map/index.html
+
 ## Preface
 
 For the fourth and penultimate project necessary to earn the 'Data Visualization Projects' certification @freeCodeCamp, the task is to visualize arbitrary data through a choropleth map, and with the D3.js library.
