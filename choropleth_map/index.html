@@ -1,29 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>CodePen - Visualize Data with a Choropleth Map</title>
-  <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+
+  <title>FreeCodeCamp: Visualize Data with a Choropleth Map</title>
+  <meta name="description" content="Visualize arbitrary data with a choropleth map, using D3.js."/>
+
+  <link rel="stylesheet" href="style.css"/>
+  <!-- <link rel="icon" href="tab_icon.png"> -->
 
 </head>
-<body>
-<!-- partial:index.partial.html -->
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Visualize Data with a Choropleth Map</title>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-  <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
-</html>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/16.4.0/umd/react.development.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.0/umd/react-dom.development.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js'></script>
-<script src='https://d3js.org/topojson.v2.min.js'></script><script  src="./script.js"></script>
 
+<body>
+  
+  <!-- include a single container, used to plot the data viz -->
+  <div class="container"></div>
+
+<!-- reference the D3 library and the topojson extension before the script making use of both -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
