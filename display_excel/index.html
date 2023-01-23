@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Excel Content</title>
+    <style>
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+    }
+    </style>
+  </head>
+  <body>
+    <table id="excel-table"></table>
+    <script>
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "./thisExcel.xlsx", true);
+    xhr.responseType = "arraybuffer";
+
+    xhr.onload = function(e) {
+      var data = new Uint8Array(xhr.response);
+      var workbook = XLSX.read(data, {type: "array"});
+      var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+      var excelData = XLSX.utils.sheet_to_json(firstSheet, {header:1});
+
+      // Create the table elements
+      var table = document.getElementById("excel-table");
+      for(var i = 0; i < excelData.length; i++) {
+        var row = table.insertRow();
+        for(var j = 0; j < excelData[i].length; j++) {
+          var cell = row.insertCell();
+          cell.innerHTML = excelData[i][j];
+        }
+      }
+    };
+    xhr.send();
+    </script>
+  </body>
+</html>
