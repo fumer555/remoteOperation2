@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+      .timeline {
+        display: flex;
+        align-items: center;
+        height: 100px;
+        margin: 40px 0;
+        position: relative;
+      }
+      .timeline::before {
+        content: "";
+        width: 3px;
+        background-color: black;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+      }
+      .timeline .timeline-item {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: blue;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+        text-align: center;
+        line-height: 50px;
+        color: white;
+        font-size: 16px;
+      }
+      .timeline .timeline-item::after {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: blue;
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+      .timeline .timeline-item.is-active::after {
+        background-color: white;
+      }
+      .timeline .timeline-item.is-active .timeline-info {
+        display: block;
+        position: absolute;
+        bottom: -80px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        background-color: white;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px #ddd;
+      }
+      .timeline .timeline-info {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="timeline">
+      <div class="timeline-item is-active" data-year="1632">
+        <div class="timeline-info">
+          <h3>John Locke</h3>
+          <p>Empiricism</p>
+        </div>
+        <p>1632</p>
+      </div>
+      <div class="timeline-item" data-year="1724">
+        <div class="timeline-info">
+          <h3>Immanuel Kant</h3>
+          <p>Transcendental Idealism</p>
+        </div>
+        <p>1724</p>
+      </div>
+      <div class="timeline-item" data-year="1770">
+        <div class="timeline-info">
+          <h3>G.W.F. Hegel</h3>
+          <p>Absolute Idealism</p>
+        </div>
+        <p>1770</p>
+      </div>
+      <div class="timeline-item" data-year="1818">
+        <div class="timeline-info">
+          <h3>Arthur Schopenhauer</h3>
+          <p>Pessimistic Metaphysics</p>
+        </div>
+        <p>1818</p>
+      </div>
+      <div class="timeline-item" data-year="1859">
+        <div class="timeline-info">
+          <h3>Friedrich Nietzsche</h3>
+          <p>Nihilism</p>
+        </div>
+        <p>1859</p>
+      </div>
+    </div>
+  </body>
+</html>
+
+     
