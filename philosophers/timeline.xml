@@ -1,0 +1,38 @@
+<philosophers>
+  <philosopher>
+    <name>René Descartes</name>
+    <birthYear>1596</birthYear>
+    <deathYear>1650</deathYear>
+    <philosophy>Cartesianism</philosophy>
+  </philosopher>
+  <philosopher>
+    <name>John Locke</name>
+    <birthYear>1632</birthYear>
+    <deathYear>1704</deathYear>
+    <philosophy>Empiricism</philosophy>
+  </philosopher>
+  <philosopher>
+    <name>Immanuel Kant</name>
+    <birthYear>1724</birthYear>
+    <deathYear>1804</deathYear>
+    <philosophy>Kantianism</philosophy>
+  </philosopher>
+  <philosopher>
+    <name>Georg Wilhelm Friedrich Hegel</name>
+    <birthYear>1770</birthYear>
+    <deathYear>1831</deathYear>
+    <philosophy>Hegelianism</philosophy>
+  </philosopher>
+  <philosopher>
+    <name>Friedrich Nietzsche</name>
+    <birthYear>1844</birthYear>
+    <deathYear>1900</deathYear>
+    <philosophy>Existentialism</philosophy>
+  </philosopher>
+  <philosopher>
+    <name>Søren Kierkegaard</name>
+    <birthYear>1813</birthYear>
+    <deathYear>1855</deathYear>
+    <philosophy>Existentialism</philosophy>
+  </philosopher>
+</philosophers>
