@@ -6,6 +6,7 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
   </head>
   <body>
+    <div id="timeline"></div>
     <script>
       d3.xml("timeline.xml").then(function(xml) {
         var data = d3.select(xml).selectAll("philosopher")
@@ -19,7 +20,7 @@
             };
           });
 
-        var timeline = d3.select("body").append("svg")
+        var timeline = d3.select("#timeline").append("svg")
           .attr("width", 800)
           .attr("height", 500)
           .append("g")
