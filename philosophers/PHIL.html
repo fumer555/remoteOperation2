@@ -11,35 +11,23 @@
         margin: 40px 0;
         position: relative;
       }
-      .timeline::before {
-        content: "";
-        width: 100%;
+      .axis {
         height: 3px;
         background-color: black;
         position: absolute;
         left: 0;
         right: 0;
-        top: 50%;
+        bottom: 0;
       }
       .timeline-item {
         height: 50px;
-        width: 100px;
         position: absolute;
-        top: -25px;
+        bottom: 3px;
         background-color: blue;
         color: white;
         text-align: center;
         line-height: 50px;
         font-size: 16px;
-      }
-      .timeline-arrow {
-        width: 0;
-        height: 0;
-        border-top: 25px solid transparent;
-        border-bottom: 25px solid transparent;
-        border-left: 25px solid black;
-        position: absolute;
-        top: 50%;
       }
     </style>
   </head>
@@ -56,12 +44,23 @@
 
       const timeline = d3.select(".timeline");
 
+      const minYear = d3.min(philosophers, d => d.born);
       const maxYear = d3.max(philosophers, d => d.died);
 
       const xScale = d3
         .scaleLinear()
-        .domain([d3.min(philosophers, d => d.born), maxYear])
+        .domain([minYear, maxYear])
         .range([0, 500]);
+
+      const axis = d3
+        .axisBottom(xScale)
+        .ticks(5)
+        .tickFormat(d3.format("d"));
+
+      timeline
+        .append("div")
+        .attr("class", "axis")
+        .call(axis);
 
       timeline
         .selectAll(".timeline-item")
@@ -70,15 +69,8 @@
         .append("div")
         .attr("class", "timeline-item")
         .style("left", d => `${xScale(d.born)}px`)
+        .style("width", d => `${xScale(d.died) - xScale(d.born)}px`)
         .text(d => d.name);
-
-      timeline
-        .selectAll(".timeline-arrow")
-        .data(philosophers)
-        .enter()
-        .append("div")
-        .attr("class", "timeline-arrow")
-        .style("left", d => `${xScale(d.died)}px`);
     </script>
   </body>
 </html>
