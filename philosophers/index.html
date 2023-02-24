@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Timeline of Modern Philosophers</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+  </head>
+  <body>
+    <script>
+      d3.xml("timeline.xml").then(function(xml) {
+        var data = d3.select(xml).selectAll("philosopher")
+          .data()
+          .map(function(d) {
+            return {
+              name: d3.select(d).select("name").text(),
+              birthYear: +d3.select(d).select("birthYear").text(),
+              deathYear: +d3.select(d).select("deathYear").text(),
+              philosophy: d3.select(d).select("philosophy").text()
+            };
+          });
+
+        var timeline = d3.select("body").append("svg")
+          .attr("width", 800)
+          .attr("height", 500)
+          .append("g")
+          .selectAll("rect")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("x", function(d) { return d3.scaleLinear().domain([1600, 1900]).range([0, 800])(d.birthYear); })
+          .attr("y", function(d, i) { return i * 50; })
+          .attr("width", function(d) { return d3.scaleLinear().domain([1600, 1900]).range([0, 800])(d.deathYear) - d3.scaleLinear().domain([1600, 1900]).range([0, 800])(d.birthYear); })
+          .attr("height", 40)
+          .style("fill", "lightgray");
+
+        timeline.append("title")
+          .text(function(d) { return d.name + ": " + d.philosophy; });
+      });
+    </script>
+  </body>
+</html>
