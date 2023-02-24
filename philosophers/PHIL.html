@@ -5,7 +5,7 @@
     <style>
       .timeline {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         height: 300px;
         margin: 40px 0;
@@ -13,26 +13,33 @@
       }
       .timeline::before {
         content: "";
-        width: 3px;
+        width: 100%;
+        height: 3px;
         background-color: black;
         position: absolute;
+        left: 0;
+        right: 0;
         top: 50%;
-        bottom: 50%;
-        left: 50%;
       }
       .timeline-item {
-        width: 50px;
         height: 50px;
-        border-radius: 50%;
-        background-color: blue;
+        width: 100px;
         position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        top: -25px;
+        background-color: blue;
+        color: white;
         text-align: center;
         line-height: 50px;
-        color: white;
         font-size: 16px;
+      }
+      .timeline-arrow {
+        width: 0;
+        height: 0;
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 25px solid black;
+        position: absolute;
+        top: 50%;
       }
     </style>
   </head>
@@ -40,14 +47,21 @@
     <div class="timeline"></div>
     <script>
       const philosophers = [
-        { name: "John Locke", year: 1632 },
-        { name: "Immanuel Kant", year: 1724 },
-        { name: "G.W.F. Hegel", year: 1770 },
-        { name: "Arthur Schopenhauer", year: 1818 },
-        { name: "Friedrich Nietzsche", year: 1859 }
+        { name: "John Locke", born: 1632, died: 1704 },
+        { name: "Immanuel Kant", born: 1724, died: 1804 },
+        { name: "G.W.F. Hegel", born: 1770, died: 1831 },
+        { name: "Arthur Schopenhauer", born: 1788, died: 1860 },
+        { name: "Friedrich Nietzsche", born: 1844, died: 1900 }
       ];
 
       const timeline = d3.select(".timeline");
+
+      const maxYear = d3.max(philosophers, d => d.died);
+
+      const xScale = d3
+        .scaleLinear()
+        .domain([d3.min(philosophers, d => d.born), maxYear])
+        .range([0, 500]);
 
       timeline
         .selectAll(".timeline-item")
@@ -55,8 +69,16 @@
         .enter()
         .append("div")
         .attr("class", "timeline-item")
-        .style("top", (d, i) => `${i * 50}px`)
+        .style("left", d => `${xScale(d.born)}px`)
         .text(d => d.name);
+
+      timeline
+        .selectAll(".timeline-arrow")
+        .data(philosophers)
+        .enter()
+        .append("div")
+        .attr("class", "timeline-arrow")
+        .style("left", d => `${xScale(d.died)}px`);
     </script>
   </body>
 </html>
