@@ -29,10 +29,18 @@
         line-height: 50px;
         font-size: 16px;
       }
+      .tooltip {
+        position: absolute;
+        padding: 5px;
+        background-color: white;
+        border: 1px solid gray;
+        display: none;
+      }
     </style>
   </head>
   <body>
     <div class="timeline"></div>
+    <div class="tooltip"></div>
     <script>
       const philosophers = [
         { name: "John Locke", born: 1632, died: 1704 },
@@ -43,6 +51,7 @@
       ];
 
       const timeline = d3.select(".timeline");
+      const tooltip = d3.select(".tooltip");
 
       const minYear = d3.min(philosophers, d => d.born);
       const maxYear = d3.max(philosophers, d => d.died);
@@ -70,7 +79,18 @@
         .attr("class", "timeline-item")
         .style("left", d => `${xScale(d.born)}px`)
         .style("width", d => `${xScale(d.died) - xScale(d.born)}px`)
-        .text(d => d.name);
+        .text(d => d.name)
+        .on("mouseover", function(d) {
+          tooltip
+            .style("display", "block")
+            .style("left", d3.event.pageX + 10 + "px")
+            .style("top", d3.event.pageY + 10 + "px")
+            .html(`<strong>${d.name}</strong><br>Born: ${d.born}<br>Died: ${d.died}`);
+        })
+        .on("mouseout", function() {
+          tooltip.style("display", "none");
+        });
     </script>
   </body>
 </html>
+
