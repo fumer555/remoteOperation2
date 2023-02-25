@@ -1,60 +1,153 @@
+
+<!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <script src="https://d3js.org/d3.v6.min.js"></script>
+  <style>
+    .axis {
+      font-family: sans-serif;
+      font-size: 10px;
+    }
+
+    .bar {
+      fill: steelblue;
+    }
+
+    .label {
+      fill: white;
+      font-family: sans-serif;
+      font-size: 12px;
+      text-anchor: middle;
+    }
+  </style>
 </head>
 <body>
-  <div id="chart"></div>
   <script>
 
-    // Define the dimensions of the chart
-    var margin = {top: 20, right: 20, bottom: 40, left: 100};
-    var width = 600 - margin.left - margin.right;
-    var height = 300 - margin.top - margin.bottom;
+    // Define the margin and dimensions of the svg element
+    var margin = {top: 20, right: 20, bottom: 40, left: 40},
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
-    // Create a scale for the x-axis
-    var xScale = d3.scaleLinear()
-      .domain([1500,2000]) // The range of years
-      .range([0,width]); // The width of the chart
+    // Create a linear scale for the x-axis (time)
+    var x = d3.scaleLinear()
+        .range([0, width]);
 
-    // Create a scale for the y-axis
-    var yScale = d3.scaleBand()
-      .range([0,height]) // The height of the chart
-      .padding(0.1); // The spacing between bars
+    // Create an ordinal scale for the y-axis (philosophers)
+    var y = d3.scaleBand()
+        .range([height, 0])
+        .padding(0.1);
 
-    // Create an svg element and append it to the div with id "chart"
-    var svg = d3.select("#chart")
-      .append("svg")
+    // Create an svg element and append it to the body
+    var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-     // Read the json file and use it for the chart
-     d3.json("philosophers.json").then(function(data) {
+    // Load the data from philosophers.json
+    d3.json("philosophers.json").then(function(data) {
 
-       // Update the domain of the y scale with the names of the philosophers
-       yScale.domain(data.map(d => d.name));
+      // Set the domain of the x-scale to be from 1500 to 2000
+      x.domain([1500, 2000]);
 
-       // Append a rectangle for each philosopher
-       svg.selectAll("rect")
-         .data(data)
-         .join("rect")
-           .attr("x", d => xScale(d.start)) // The x position is based on the start year
-           .attr("y", d => yScale(d.name)) // The y position is based on the name
-           .attr("width", d => xScale(d.end) - xScale(d.start)) // The width is based on the difference between end and start years
-           .attr("height", yScale.bandwidth()) // The height is based on the bandwidth of the y scale
-           .style("fill", "steelblue"); // The color of the rectangle
+      // Set the domain of the y-scale to be the names of the philosophers
+      y.domain(data.map(function(d) { return d.name; }));
 
-       // Append an axis for the x-axis
-       svg.append("g")
-           .attr("transform", `translate(0,${height})`)
-           .call(d3.axisBottom(xScale).ticks(10));
+      // Append a group element for each philosopher
+      var bars = svg.selectAll(".bar")
+          .data(data)
+        .enter().append("g")
+          .attr("class", "bar");
 
-        // Append an axis for the y-axis
-        svg.append("g")
-            .call(d3.axisLeft(yScale));
-     });
+      // Append a rect element for each philosopher's lifespan
+      bars.append("rect")
+          .attr("x", function(d) { return x(d.start); }) // set the x position to be the start year
+          .attr("y", function(d) { return y(d.name); }) // set the y position to be the name
+          .attr("width", function(d) { return x(d.end) - x(d.start); }) // set the width to be the difference between end and start years
+          .attr("height", y.bandwidth()); // set the height to be equal to one band
 
-     </script>
+      // Append a text element for each philosopher's name
+      bars.append("text")
+          .attr("class", "label")
+          .attr("x", function(d) { return x((d.start + d.end) / 2); }) // set the x position to be in between start and end years
+          .attr("y", function(d) { return y(d.name) + y.bandwidth() / 2; }) // set the y position to be in between top and bottom of rect 
+          .attr("dy", ".35em") 
+          .text(function(d) { return d.name; }); // set text content
+
+      
+      
+
+
+      
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+      
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+
+      
+      
+
+
+      
+      
+
+
+      
+      
+
+
+      
+      
+
+// Append an axis element for showing time ticks on bottom 
+svg.append('g')
+.attr('class', 'axis')
+.attr('transform', 'translate(0,'+height+')')
+.call(d3.axisBottom(x).ticks(10).tickFormat(function (d){
+return d.toString();})); 
+
+// Append an axis element for showing philosopher names on left 
+svg.append('g')
+.attr('class', 'axis')
+.call(d3.axisLeft(y)); 
+
+});
+
+</script>
+
 </body>
+
 </html>
