@@ -1,101 +1,63 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <style>
-      .timeline {
-        height: 300px;
-        margin: 40px 0;
-        position: relative;
-      }
-      .axis {
-        height: 3px;
-        background-color: black;
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-      }
-      .tick line {
-        stroke: gray;
-        stroke-width: 0.5px;
-        shape-rendering: crispEdges;
-      }
-      .philosopher {
-        position: absolute;
-        bottom: 3px;
-        background-color: blue;
-        color: white;
-        text-align: center;
-        line-height: 50px;
-        font-size: 16px;
-      }
-      .tooltip {
-        position: absolute;
-        padding: 5px;
-        background-color: white;
-        border: 1px solid gray;
-        display: none;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="timeline"></div>
-    <div class="tooltip"></div>
-    <script>
-      const philosophers = [
-        { name: "John Locke", born: 1632, died: 1704 },
-        { name: "Immanuel Kant", born: 1724, died: 1804 },
-        { name: "G.W.F. Hegel", born: 1770, died: 1831 },
-        { name: "Arthur Schopenhauer", born: 1788, died: 1860 },
-        { name: "Friedrich Nietzsche", born: 1844, died: 1900 }
-      ];
+<head>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body>
+  <div id="chart"></div>
+  <script>
 
-      const timeline = d3.select(".timeline");
-      const tooltip = d3.select(".tooltip");
+    // Define some sample data
+    var data = [
+      {name: "Descartes", start: 1596, end: 1650},
+      {name: "Hume", start: 1711, end: 1776},
+      {name: "Kant", start: 1724, end: 1804},
+      {name: "Hegel", start: 1770, end: 1831},
+      {name: "Nietzsche", start: 1844, end: 1900}
+    ];
 
-      const minYear = d3.min(philosophers, d => d.born);
-      const maxYear = d3.max(philosophers, d => d.died);
+    // Define the dimensions of the chart
+    var margin = {top: 20, right: 20, bottom: 40, left: 100};
+    var width = 600 - margin.left - margin.right;
+    var height = 300 - margin.top - margin.bottom;
 
-      const xScale = d3
-        .scaleLinear()
-        .domain([minYear, maxYear])
-        .range([0, 500]);
+    // Create a scale for the x-axis
+    var xScale = d3.scaleLinear()
+      .domain([1500,2000]) // The range of years
+      .range([0,width]); // The width of the chart
 
-      const axis = d3
-        .axisBottom(xScale)
-        .ticks(5)
-        .tickFormat(d3.format("d"))
-        .tickSizeOuter(0);
+    // Create a scale for the y-axis
+    var yScale = d3.scaleBand()
+      .domain(data.map(d => d.name)) // The names of the philosophers
+      .range([0,height]) // The height of the chart
+      .padding(0.1); // The spacing between bars
 
-      timeline
-        .append("div")
-        .attr("class", "axis")
-        .style("transform", `translateY(50px)`)
-        .call(axis);
+    // Create an svg element and append it to the div with id "chart"
+    var svg = d3.select("#chart")
+      .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
 
-      timeline
-        .selectAll(".philosopher")
-        .data(philosophers)
-        .enter()
-        .append("div")
-        .attr("class", "philosopher")
-        .style("left", d => `${xScale(d.born)}px`)
-        .style("width", d => `${xScale(d.died) - xScale(d.born)}px`)
-        .style("height", "50px")
-        .style("top", "0")
-        .text(d => d.name)
-        .on("mouseover", function(d) {
-          tooltip
-            .style("display", "block")
-            .style("left", d3.event.pageX + 10 + "px")
-            .style("top", d3.event.pageY + 10 + "px")
-            .html(`<b>Name:</b> ${d.name}<br><b>Born:</b> ${d.born}<br><b>Died:</b> ${d.died}`);
-        })
-        .on("mouseout", function(d) {
-          tooltip.style("display", "none");
-        });
-    </script>
-  </body>
+    // Append a rectangle for each philosopher
+    svg.selectAll("rect")
+      .data(data)
+      .join("rect")
+        .attr("x", d => xScale(d.start)) // The x position is based on the start year
+        .attr("y", d => yScale(d.name)) // The y position is based on the name
+        .attr("width", d => xScale(d.end) - xScale(d.start)) // The width is based on the difference between end and start years
+        .attr("height", yScale.bandwidth()) // The height is based on the bandwidth of the y scale
+        .style("fill", "steelblue"); // The color of the rectangle
+
+    // Append an axis for the x-axis
+    svg.append("g")
+        .attr("transform", `translate(0,${height})`)
+        .call(d3.axisBottom(xScale).ticks(10));
+
+     // Append an axis for the y-axis
+     svg.append("g")
+         .call(d3.axisLeft(yScale));
+
+     </script>
+</body>
 </html>
-
